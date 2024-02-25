@@ -9,7 +9,7 @@ IF "%1%"=="venv" (
     call %VENV_PATH%\Scripts\activate
 ) ELSE IF "%1%"=="install" (
     REM Run your server command here
-    pip install django djangorestframework
+    pip install django djangorestframework django-cors-headers
 ) ELSE IF "%1%"=="server" (
     REM Run your server command here
     python manage.py runserver
@@ -23,6 +23,8 @@ IF "%1%"=="venv" (
 ) ELSE IF "%1%"=="-venv" (
     REM Run your server command here
     deactivate
+) ELSE IF "%1%"=="run" (
+    python manage.py runserver
 ) ELSE (
     REM Handle unrecognized command
     echo Unrecognized command: %1%
