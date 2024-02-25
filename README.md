@@ -1,2 +1,0 @@
-# FTGAPI
- Fitness Through Gaming
