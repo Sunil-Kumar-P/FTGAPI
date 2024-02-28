@@ -1,24 +1,24 @@
 const express = require('express');
-const cors = require('cors'); // Add this line
+const cors = require('cors');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const port = 3000;
-let storedData = [];
-app.use(cors()); // Add this line
-
+var storedData = [];
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 app.post('/api/process', (req, res) => {
-  const mediapipePoints = req.body.points;
-  storedData.push(mediapipePoints);
+  const { gridPosition } = req.body; // Destructure points and gridPosition from req.body
+  storedData = []; // Clear the existing storedData
+  storedData.push({ gridPosition }); // Store the new gridPosition
   res.json({ message: 'Points received and processed successfully' });
-  // console.log("Express api data = ");
-  // console.log(mediapipePoints);
+  console.log("Express api data = ");
+  console.log({ gridPosition }); // Log both points and gridPosition
 });
 
-app.get('/api/persons', (req, res) => {
+app.get('/api/playerposition', (req, res) => {
   res.json(storedData);
 });
 
