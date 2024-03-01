@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const { log } = require('console');
 const port = 3000;
 var storedData = [];
 app.use(cors());
@@ -20,6 +21,7 @@ app.post('/api/process', (req, res) => {
 
 app.get('/api/playerposition', (req, res) => {
   res.json(storedData);
+  console.log("data sent successfull");
 });
 
 app.listen(port, () => {
