@@ -22,6 +22,7 @@ app.post('/api/process', (req, res) => {
 app.get('/api/playerposition', (req, res) => {
   res.json(storedData);
   console.log("data sent successfull");
+
 });
 
 app.listen(port, () => {
