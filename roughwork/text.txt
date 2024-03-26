@@ -1,1 +1,90 @@
 http://127.0.0.1:3000/api/playerposition
+
+
+
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+    const selectCameraDropdown = document.getElementById('selectCameraDropdown');
+
+    videoDevices.forEach(device => {
+      const option = document.createElement('option');
+      option.value = device.deviceId;
+      option.text = device.label || `Camera ${selectCameraDropdown.options.length + 1}`;
+      selectCameraDropdown.appendChild(option);
+    });
+
+    const videoElement = document.getElementsByClassName("input_video")[0];
+    const canvasElement = document.getElementsByClassName("output_canvas")[0];
+    const canvasCtx = canvasElement.getContext("2d");
+
+    function onResults(results) {
+      try {
+        canvasCtx.save();
+        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        canvasCtx.drawImage(
+          results.image,
+          0,
+          0,
+          canvasElement.width,
+          canvasElement.height
+        );
+        // Additional processing and drawing code here...
+        canvasCtx.restore();
+      } catch (error) {
+        console.error("Error drawing:", error);
+      }
+    }
+
+    const pose = new Pose({
+      locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+      },
+    });
+
+    pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+      selfieMode: true
+    });
+
+    pose.onResults(onResults);
+
+    let activeCamera;
+
+    function startCamera(deviceId) {
+      if (activeCamera) {
+        activeCamera.stop();
+      }
+      activeCamera = new Camera(videoElement, {
+        onFrame: async () => {
+          await pose.send({ image: videoElement });
+        },
+        width: 1280,
+        height: 720,
+        deviceId: deviceId
+      });
+      activeCamera.start();
+    }
+
+    selectCameraDropdown.addEventListener('change', function () {
+      const selectedDeviceId = this.value;
+      startCamera(selectedDeviceId);
+    });
+
+    // Start with the first available camera by default
+    if (videoDevices.length > 0) {
+      const defaultDeviceId = videoDevices[0].deviceId;
+      startCamera(defaultDeviceId);
+    } else {
+      console.error("No camera devices found.");
+    }
+
+  } catch (error) {
+    console.error('Error enumerating devices:', error);
+  }
+});

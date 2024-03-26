@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         // Determine grid position
         const topHeight = (canvasElement.height /10)*4;
-        const boxWidth = canvasElement.width / 3;
+        const boxWidth = (canvasElement.width / 11)*4;
         const boxHeight = canvasElement.height / 3;
         
         canvasCtx.strokeStyle = 'white'; // White color
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
         canvasCtx.beginPath();
         canvasCtx.moveTo(boxWidth, 0);
         canvasCtx.lineTo(boxWidth, canvasElement.height);
-        canvasCtx.moveTo(boxWidth * 2, 0);
-        canvasCtx.lineTo(boxWidth * 2, canvasElement.height);
+        canvasCtx.moveTo(canvasElement.width - boxWidth, 0);
+        canvasCtx.lineTo(canvasElement.width - boxWidth, canvasElement.height);
         canvasCtx.stroke();
         canvasCtx.beginPath();
         canvasCtx.moveTo(0, topHeight);
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log('Center Point Location:', centerPoint);
         var gridPosition = {
           left: centerPoint.x * canvasElement.width < boxWidth,
-          right: centerPoint.x * canvasElement.width > boxWidth * 2,
+          right: centerPoint.x * canvasElement.width > canvasElement.width - boxWidth,
           top: centerPoint.y * canvasElement.height < topHeight,
           bottom: centerPoint.y * canvasElement.height > boxHeight * 2
         };

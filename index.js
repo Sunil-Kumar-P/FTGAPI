@@ -15,13 +15,13 @@ app.post('/api/process', (req, res) => {
   storedData = []; // Clear the existing storedData
   storedData.push({ gridPosition }); // Store the new gridPosition
   res.json({ message: 'Points received and processed successfully' });
-  console.log("Express api data = ");
-  console.log({ gridPosition }); // Log both points and gridPosition
+  // console.log("Express api data = ");
+  // console.log({ gridPosition }); // Log both points and gridPosition
 });
 
 app.get('/api/playerposition', (req, res) => {
   res.json(storedData);
-  console.log("data sent successfull");
+  // console.log("data sent successfull");
 
 });
 
