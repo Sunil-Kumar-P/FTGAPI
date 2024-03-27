@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const { log } = require('console');
-const port = 3000;
+const port = 10000;
 var storedData = [];
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -26,5 +26,5 @@ app.get('/api/playerposition', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at ${port}`);
 });
