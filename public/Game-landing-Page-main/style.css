@@ -13,6 +13,73 @@ body {
   min-height: 100vh;
   background: #252839;
 }
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            top: 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 15px;
+            font-size: 18px;
+        }
+        .cta-button {
+            background-color: #ff5722;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: -10% 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .footer-links {
+            margin-top: 10px;
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .output_canvas{
+          width:"1280px";
+          height:"720px";
+        }
 ul {
   position: relative;
   display: flex;

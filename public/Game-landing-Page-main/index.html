@@ -1,36 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Land page</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <title>Fitness Through Gaming</title>
 </head>
 <body>
-  <img id="cursor" src="../img/cursor.png" width="20px" height="30px" alt="">
-  <div class="container">
-    <video class="input_video" hidden="true"></video>
-    <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-  </div>
-<!-- partial:index.partial.html -->
-<ul>
-  <li style="--clr:#00ade1">
-    <a href="../apiClient/index.html" data-text="&nbsp;Camera">&nbsp;Camera&nbsp;</a>
-  </li>
-  <li style="--clr:#ff6492">
-    <a href="../game/index.html" data-text="&nbsp;Game">&nbsp;Game&nbsp;</a>
-  </li>
-  <li style="--clr:#ffdd1c">
-    <a href="." data-text="&nbsp;History">&nbsp;History&nbsp;</a>
-  </li>
-  <li style="--clr:#00dc82">
-    <a href="#" data-text="&nbsp;Score">&nbsp;Score&nbsp;</a>
-  </li>
-</ul>
+    <header>
+        <div class="container">
+            <div class="logo">Fitness Through Gaming</div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Blog</a>
+                <a href="#">Community</a>
+                <a href="#">Contact Us</a>
+            </nav>
+        </div>
+    </header>
 <!-- partial -->
   <script src="./script.js"></script>
+        <div class="container">
+        <img id="cursor" src="../img/cursor.png" width="20px" height="30px" alt="">
+        <div class="container">
+        <video class="input_video" hidden="true"></video>
+        <canvas class="output_canvas"></canvas>
+        </div>
+        <!-- partial:index.partial.html -->
+        <ul>
+        <li style="--clr:#00ade1">
+        <a href="../apiClient/index.html" data-text="&nbsp;Camera">&nbsp;Camera&nbsp;</a>
+        </li>
+        <li style="--clr:#ff6492">
+        <a href="../game/index.html" data-text="&nbsp;Game">&nbsp;Game&nbsp;</a>
+        </li>
+        <li style="--clr:#ffdd1c">
+        <a href="." data-text="&nbsp;History">&nbsp;History&nbsp;</a>
+        </li>
+        <li style="--clr:#00dc82">
+        <a href="#" data-text="&nbsp;Score">&nbsp;Score&nbsp;</a>
+        </li>
+        </ul>
+        
+    </div>
+
+    <footer>
+        <div class="container">
+            <div>Fitness Through Gaming &copy; 2024</div>
+            <div class="footer-links">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">FAQs</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
