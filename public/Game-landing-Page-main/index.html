@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
     <title>Fitness Through Gaming</title>
 </head>
+
 <body>
+    <img id="cursor" src="../img/cursor.png" width="20px" height="30px" alt="">
     <header>
         <div class="container">
             <div class="logo">Fitness Through Gaming</div>
@@ -23,13 +28,13 @@
             </nav>
         </div>
     </header>
-<!-- partial -->
-  <script src="./script.js"></script>
+    <!-- partial -->
+    <script src="./script.js"></script>
+    <div class="container">
+
         <div class="container">
-        <img id="cursor" src="../img/cursor.png" width="20px" height="30px" alt="">
-        <div class="container">
-        <video class="input_video" hidden="true"></video>
-        <canvas class="output_canvas"></canvas>
+            <video class="input_video" hidden="true"></video>
+            <canvas class="output_canvas"></canvas>
         </div>
         <!-- partial:index.partial.html -->
         <!-- <ul>
@@ -46,42 +51,43 @@
         <div class="cards">
             <div class="card card-1">
                 <div class="card__content">
-                <span>01</span>
-                <h2>CAMERA</h2>
-                <p>which test the camera with user coordinates</p>
-                <a href="../apiClient/index.html"><button type="submit">Click Me</button></a>
+                    <span>01</span>
+                    <h2>CAMERA</h2>
+                    <p>which test the camera with user coordinates</p>
+                    <a href="../apiClient/index.html"><button type="submit">Click Me</button></a>
                 </div>
             </div>
             <div class="card card-2">
                 <div class="card__content">
-                <span>02</span>
-                <h2>Game</h2>
-                <p>which takes to actual game</p>
-                <a href="../game/index.html"><button type="submit">Click Me</button></a>
+                    <span>02</span>
+                    <h2>Game</h2>
+                    <p>which takes to actual game</p>
+                    <a href="../game/index.html"><button type="submit">Click Me</button></a>
                 </div>
             </div>
             <div class="card card-3">
                 <div class="card__content">
-                <span>03</span>
-                <h2>History</h2>
-                <p>Displays the history of player</p>
-                <a href="#"><button type="submit">Click Me</button></a>
+                    <span>03</span>
+                    <h2>History</h2>
+                    <p>Displays the history of player</p>
+                    <a href="#"><button type="submit">Click Me</button></a>
                 </div>
             </div>
 
-        
-    </div>
 
-    <footer>
-        <div class="container">
-            <div>Fitness Through Gaming &copy; 2024</div>
-            <div class="footer-links">
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">FAQs</a>
-                <a href="#">Support</a>
-            </div>
         </div>
-    </footer>
+
+        <footer>
+            <div class="container">
+                <div>Fitness Through Gaming &copy; 2024</div>
+                <div class="footer-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+        </footer>
 </body>
+
 </html>
