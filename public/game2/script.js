@@ -60,6 +60,29 @@ document.addEventListener("DOMContentLoaded", function () {
             top: centerPoint.y * canvasElement.height < topHeight,
             bottom: centerPoint.y * canvasElement.height > boxHeight * 2
           };
+          var moving = false;
+          var yrh = results.poseLandmarks[24].y;
+          var yrk = results.poseLandmarks[26].y;
+          var yra = results.poseLandmarks[28].y;
+
+          var ylh = results.poseLandmarks[23].y;
+          var ylk = results.poseLandmarks[25].y;
+          var yla = results.poseLandmarks[27].y;
+
+          var disLeftK = yla - ylk;
+          var disLeftH = ylk - ylh;
+
+          var disRightK = yra - yrk;
+          var disRightH = yrk - yrh;
+          if (disLeftH + disLeftH > disLeftK) {
+            // gridPosition.moving = true;
+            moving =false;
+          }
+          if (disRightH + disRightH > disRightK) {
+            // gridPosition.moving = true;
+            moving =false;
+
+          }
           // Update gridPosition to include center
           gridPosition.center = !gridPosition.left && !gridPosition.right;
   
@@ -70,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
           // Send data to server
           sendMediaPipePointsToServer(gridPosition);
+          console.log("moving = " + moving);
         }
         canvasCtx.restore();
       } catch (error) {
