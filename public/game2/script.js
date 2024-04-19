@@ -58,42 +58,45 @@ document.addEventListener("DOMContentLoaded", function () {
             left: centerPoint.x * canvasElement.width < boxWidth,
             right: centerPoint.x * canvasElement.width > canvasElement.width - boxWidth,
             top: centerPoint.y * canvasElement.height < topHeight,
-            bottom: centerPoint.y * canvasElement.height > boxHeight * 2
+            bottom: centerPoint.y * canvasElement.height > boxHeight * 2,
+            moving: false,
+            restart: false,
           };
+          // Update gridPosition to include center
+          gridPosition.center = !gridPosition.left && !gridPosition.right;
           var moving = false;
+  
           var yrh = results.poseLandmarks[24].y;
           var yrk = results.poseLandmarks[26].y;
           var yra = results.poseLandmarks[28].y;
-
+  
           var ylh = results.poseLandmarks[23].y;
           var ylk = results.poseLandmarks[25].y;
           var yla = results.poseLandmarks[27].y;
-
+  
           var disLeftK = yla - ylk;
           var disLeftH = ylk - ylh;
-
+  
           var disRightK = yra - yrk;
           var disRightH = yrk - yrh;
-          if (disLeftH + disLeftH > disLeftK) {
-            // gridPosition.moving = true;
-            moving =false;
+  
+          if (disLeftH < 0.15 || disLeftK <0.15) {
+            gridPosition.moving = true;
           }
-          if (disRightH + disRightH > disRightK) {
-            // gridPosition.moving = true;
-            moving =false;
-
+          if (disRightH < 0.15 || disRightK <0.15) {
+            gridPosition.moving = true;
           }
-          // Update gridPosition to include center
-          gridPosition.center = !gridPosition.left && !gridPosition.right;
   
           // Display position text on the bottom corner
           canvasCtx.fillStyle = gridPosition.center ? '#0000FF' : '#FFFFFF'; // Blue color if center, white otherwise
-          canvasCtx.font = '20px Arial';
-          canvasCtx.fillText(`Position: left: ${gridPosition.left} right: ${gridPosition.right} top: ${gridPosition.top} bottom: ${gridPosition.bottom} center: ${gridPosition.center}`, 10, canvasElement.height - 10);
+          canvasCtx.font = '40px Arial';
+          canvasCtx.fillText(`moving  ${gridPosition.moving} `, 10, canvasElement.height - 10);
   
           // Send data to server
           sendMediaPipePointsToServer(gridPosition);
-          console.log("moving = " + moving);
+          console.log(" " + disLeftH+ " "+ disLeftK);
+          console.log(" " + disRightH+ " "+ disRightK);
+          console.log("moving = " + gridPosition.moving);
         }
         canvasCtx.restore();
       } catch (error) {
