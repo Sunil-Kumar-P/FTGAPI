@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Display position text on the bottom corner
         canvasCtx.fillStyle = gridPosition.center ? '#0000FF' : '#FFFFFF'; // Blue color if center, white otherwise
         canvasCtx.font = '40px Arial';
-        canvasCtx.fillText(`left ${gridPosition.moving} `, 10, canvasElement.height - 10);
+        canvasCtx.fillText(`moving  ${gridPosition.moving} `, 10, canvasElement.height - 10);
 
         // Send data to server
         sendMediaPipePointsToServer(gridPosition);
