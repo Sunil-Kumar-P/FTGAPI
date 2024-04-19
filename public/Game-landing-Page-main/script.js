@@ -8,8 +8,8 @@ function moveCursor(middleFingerMCP,middleFingerTip, mfcp) {
     const imageHeight = cursor.clientHeight;
 
     // Convert normalized coordinates to actual window coordinates
-    const x = middleFingerMCP.x * window.innerWidth;
-    const y = middleFingerMCP.y * window.innerHeight;
+    const x = mfcp.x * window.innerWidth;
+    const y = mfcp.y * window.innerHeight;
 
     // Calculate new position for the cursor image
     const newX = Math.max(0, Math.min(windowWidth - imageWidth, x));
@@ -22,25 +22,23 @@ function moveCursor(middleFingerMCP,middleFingerTip, mfcp) {
 }
 // Function to check for hover effect on <li> elements
 function checkHoverEffect(cursorX, cursorY,  middleFingerMCP, middleFingerTip) {
-    const liElements = document.querySelectorAll("li");
-    liElements.forEach(li => {
-        const rect = li.getBoundingClientRect();
+    const alink = document.querySelectorAll("a");
+    alink.forEach(ali => {
+        const rect = ali.getBoundingClientRect();
         if (
             cursorX >= rect.left &&
             cursorX <= rect.right &&
             cursorY >= rect.top &&
             cursorY <= rect.bottom
         ) {
-            li.classList.add("hovered");
-            if(middleFingerTip.y<middleFingerMCP.y){
-                const link = li.querySelector("a");
-                if (link) {
-                    link.click();
-                }
+            if(middleFingerMCP.y > middleFingerTip.y){
+                ali.click();
             }
-        } else {
-            li.classList.remove("hovered");
-        }
+           
+        } 
+        // else {
+        //     li.classList.remove("hovered");
+        // }
     });
 }
 document.addEventListener("DOMContentLoaded", function () {
