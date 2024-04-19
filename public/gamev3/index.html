@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Jimmy</title>
+    <title> FTG Endless Runner</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -17,7 +17,10 @@
       <video class="input_video" hidden="hidden"></video>
     </div>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <div id="fullscreen-container">
+        <canvas class="output_canvas" id="cam" width="1280px" height="720px"></canvas>
+        <canvas id="unity-canvas" width=960 height=600></canvas>
+      </div>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -123,6 +126,7 @@
       };
       document.body.appendChild(script);
     </script>
+    
     <script src="./script.js"></script>
   </body>
 </html>
