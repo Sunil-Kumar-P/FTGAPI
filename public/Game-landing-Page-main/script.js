@@ -1,15 +1,15 @@
 // Mouse Controller
 const cursor = document.getElementById("cursor");
 
-function moveCursor(middleFingerMCP,middleFingerTip) {
+function moveCursor(middleFingerMCP,middleFingerTip, mfcp) {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const imageWidth = cursor.clientWidth;
     const imageHeight = cursor.clientHeight;
 
     // Convert normalized coordinates to actual window coordinates
-    const x = middleFingerMCP.x * window.innerWidth;
-    const y = middleFingerMCP.y * window.innerHeight;
+    const x = mfcp.x * window.innerWidth;
+    const y = mfcp.y * window.innerHeight;
 
     // Calculate new position for the cursor image
     const newX = Math.max(0, Math.min(windowWidth - imageWidth, x));
@@ -22,25 +22,23 @@ function moveCursor(middleFingerMCP,middleFingerTip) {
 }
 // Function to check for hover effect on <li> elements
 function checkHoverEffect(cursorX, cursorY,  middleFingerMCP, middleFingerTip) {
-    const liElements = document.querySelectorAll("li");
-    liElements.forEach(li => {
-        const rect = li.getBoundingClientRect();
+    const alink = document.querySelectorAll("a");
+    alink.forEach(ali => {
+        const rect = ali.getBoundingClientRect();
         if (
             cursorX >= rect.left &&
             cursorX <= rect.right &&
             cursorY >= rect.top &&
             cursorY <= rect.bottom
         ) {
-            li.classList.add("hovered");
-            if(middleFingerTip.y<middleFingerMCP.y){
-                const link = li.querySelector("a");
-                if (link) {
-                    link.click();
-                }
+            if(middleFingerMCP.y > middleFingerTip.y){
+                ali.click();
             }
-        } else {
-            li.classList.remove("hovered");
-        }
+           
+        } 
+        // else {
+        //     li.classList.remove("hovered");
+        // }
     });
 }
 document.addEventListener("DOMContentLoaded", function () {
@@ -95,10 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Get coordinates of point number 9 (index finger tip)
                 const middleFingerTip = hand[9]; // Index 8 represents the index finger tip
                 const middleFingerMCP = hand[12];
+                const mfcp = hand[0];
                 
 
                 // Move the cursor to the new position
-                moveCursor(middleFingerMCP, middleFingerTip);
+                moveCursor(middleFingerMCP, middleFingerTip, mfcp);
             }
         }
         canvasCtx.restore();
