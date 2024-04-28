@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // MongoDB connection
-mongoose.connect("mongodb://localhost:27017/Login-tut")
+mongoose.connect("mongodb+srv://admin:Gaming123@gamingdata.d53tbwt.mongodb.net/Login-tut")
     .then(() => console.log("Database Connected Successfully"))
     .catch(() => console.log("Database cannot be Connected"));
 
