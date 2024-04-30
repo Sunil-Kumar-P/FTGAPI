@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const { connectToMongoDB } = require("./connect");
@@ -11,12 +13,15 @@ const userRoute = require("./routes/user");
 
 const app = express();
 const port = 3000;
-var storedData= [];
+var storedData = [];
 
 connectToMongoDB(process.env.MONGODB ?? "mongodb+srv://admin:Gaming123@gamingdata.d53tbwt.mongodb.net/jungle").then(() =>
   console.log("Mongodb connected")
 );
 
+// // Middleware
+app.use(cors());
+app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -50,22 +55,17 @@ app.get("/url/:shortId", async (req, res) => {
 
 
 // const express = require('express');
-// const cors = require('cors');
+
 // const app = express();
 // const path = require('path');
-// const bodyParser = require('body-parser');
+
 // const mongoose = require('mongoose');
 // const bcrypt = require('bcrypt');
 
 
-// var storedData = [];
 
-// // Middleware
-// app.use(cors());
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use(bodyParser.json());
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+
+
 
 // // MongoDB connection
 // mongoose.connect("mongodb+srv://admin:Gaming123@gamingdata.d53tbwt.mongodb.net/Login-tut")
