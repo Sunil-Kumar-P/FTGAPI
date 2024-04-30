@@ -1,19 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-
+    <link rel="stylesheet" href="./landing-page/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <title>Fitness Through Gaming</title>
 </head>
+
 <body>
-    <h1 style="text-align: center;">Welcome to Home Page</h1>
-    <a href="./Game-landing-Page-main/index.html">Landing Page</a>
-    <br><br>
-    <a href="./apiClient/">Camera test</a>
-    <br><br>
-    <a href="./game2/">Game</a>
-    <br><br>
-    <a href="#">Logout</a>
+    <img id="cursor" src="./img/cursor.png" width="20px" height="30px" alt="">
+    <header>
+        <div class="container">
+            <div class="logo">Fitness Through Gaming</div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Blog</a>
+                <a href="#">Community</a>
+                <a href="#">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+    <!-- partial -->
+    <script src="./landing-page/script.js"></script>
+    <div class="container">
+
+        <div class="container">
+            <video class="input_video" hidden="true"></video>
+            <canvas class="output_canvas"></canvas>
+        </div>
+        <!-- partial:index.partial.html -->
+        <!-- <ul>
+        <li style="--clr:#00ade1">
+        <a href="../apiClient/index.html" data-text="&nbsp;Camera">&nbsp;Camera&nbsp;</a>
+        </li>
+        <li style="--clr:#ff6492">
+        <a href="../game/index.html" data-text="&nbsp;Game">&nbsp;Game&nbsp;</a>
+        </li>
+        <li style="--clr:#ffdd1c">
+        <a href="." data-text="&nbsp;History">&nbsp;History&nbsp;</a>
+        </li>
+        </ul> -->
+        <div class="cards">
+            <a href="../apiClient/index.html">
+                <div class="card card-1">
+                    <div class="card__content">
+                        <span>01</span>
+                        <h2>CAMERA</h2>
+                        <p>which test the camera with user coordinates</p>
+                        <button type="submit">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a href="../gamev3">
+                <div class="card card-2">
+                    <div class="card__content">
+                        <span>02</span>
+                        <h2>Game</h2>
+                        <p>which takes to actual game</p>
+                        <button type="submit">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a href="/history">
+                <div class="card card-3">
+                    <div class="card__content">
+                        <span>03</span>
+                        <h2>History</h2>
+                        <p>Displays the history of player</p>
+                        <button type="submit">Click Me</button>
+                    </div>
+                </div>
+            </a>
+
+
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div>Fitness Through Gaming &copy; 2024</div>
+            <div class="footer-links">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">FAQs</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>
