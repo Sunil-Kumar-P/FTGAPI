@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         // Update gridPosition to include center
         gridPosition.center = !gridPosition.left && !gridPosition.right;
-        var moving = false;
+        // var moving = false;
 
         var yrh = results.poseLandmarks[24].y;
         var yrk = results.poseLandmarks[26].y;
@@ -87,12 +87,22 @@ document.addEventListener("DOMContentLoaded", function () {
           gridPosition.moving = true;
         }
 
+
+        var rw = results.poseLandmarks[15].x;
+        var lw = results.poseLandmarks[16].x;
+
+        if(rw<lw){
+          gridPosition.restart = true;
+        }else{
+          gridPosition.restart = false;
+        }
+        
         // Display position text on the bottom corner
         canvasCtx.fillStyle = gridPosition.center ? '#0000FF' : '#FFFFFF'; // Blue color if center, white otherwise
         canvasCtx.font = '40px Arial';
-        canvasCtx.fillText(`moving  ${gridPosition.moving} `, 10, canvasElement.height - 10);
+        canvasCtx.fillText(`moving ${gridPosition.moving} `, 10, canvasElement.height - 10);
 
-        gridPosition.moving = true;
+        // gridPosition.moving = true;
         // Send data to server
         sendMediaPipePointsToServer(gridPosition);
       }
