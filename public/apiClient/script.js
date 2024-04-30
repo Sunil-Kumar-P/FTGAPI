@@ -92,11 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
         canvasCtx.font = '40px Arial';
         canvasCtx.fillText(`moving  ${gridPosition.moving} `, 10, canvasElement.height - 10);
 
+        gridPosition.moving = true;
         // Send data to server
         sendMediaPipePointsToServer(gridPosition);
-        console.log(" " + disLeftH+ " "+ disLeftK);
-        console.log(" " + disRightH+ " "+ disRightK);
-        console.log("moving = " + gridPosition.moving);
       }
       canvasCtx.restore();
     } catch (error) {
