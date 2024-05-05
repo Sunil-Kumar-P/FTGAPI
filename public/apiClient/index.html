@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,4 +22,94 @@
   <script src="script.js">
   </script>
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Gestures Capture</title>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .container {
+      display: flex;
+      height: 100vh; /* Ensure full height */
+    }
+
+    .canvas-container {
+      flex: 1; /* Take up half of the container */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px; /* Adjust padding as needed */
+    }
+
+    .textbox-container {
+      flex: 1; /* Take up half of the container */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px; /* Adjust padding as needed */
+    }
+
+    .textbox {
+      margin-bottom: 10px;
+    }
+
+    .textbox label {
+      font-weight: bold;
+    }
+
+    .output_canvas {
+      width: 800px; /* Set the width to 800 pixels */
+      height: 600px; /* Set the height to 600 pixels */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="canvas-container">
+      <select id="selectCameraDropdown"></select>
+      <video class="input_video" hidden="hidden"></video>
+      <canvas class="output_canvas"></canvas>
+    </div>
+    <div class="textbox-container">
+      <div class="textbox">
+        <label for="left">Left:</label>
+        <input type="text" id="left" readonly>
+      </div>
+      <div class="textbox">
+        <label for="right">Right:</label>
+        <input type="text" id="right" readonly>
+      </div>
+      <div class="textbox">
+        <label for="up">Up:</label>
+        <input type="text" id="up" readonly>
+      </div>
+      <div class="textbox">
+        <label for="down">Down:</label>
+        <input type="text" id="down" readonly>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
 </html>
+
+
+
+
+
+
+
+
+
