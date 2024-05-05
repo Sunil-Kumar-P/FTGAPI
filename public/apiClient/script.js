@@ -2,7 +2,58 @@ document.addEventListener("DOMContentLoaded", function () {
   const videoElement = document.getElementsByClassName("input_video")[0];
   const canvasElement = document.getElementsByClassName("output_canvas")[0];
   const canvasCtx = canvasElement.getContext("2d");
+  var gridPosition = {
+    left: false,
+    right: false,
+    top: false,
+    bottom: false,
+    moving: false,
+    restart: false,
+  };
+  var Legs = {
+    'left': false,
+    'right': false,
+  }
+  var legInAir = false;
 
+  function RestartGame(rw, lw) {
+    if (rw < lw) {
+      gridPosition.restart = true;
+    } else {
+      gridPosition.restart = false;
+    }
+  }
+  function checkLeftLeg() {
+    if (Legs.left) {
+      legInAir = false;
+      gridPosition.moving = true;
+      Legs.left = false;
+    }
+  }
+  function checkRightLeg() {
+    if (Legs.right) {
+      legInAir = false;
+      gridPosition.moving = true;
+      Legs.right = false;
+    }
+  }
+  function checkLowerLimbMovement(fullbody, leftLeg, rightLeg) {
+
+    if (leftLeg < fullbody * 0.40) {
+      legInAir = true;
+      Legs.left = true;
+    } else {
+      checkLeftLeg();
+    }
+    if (rightLeg < fullbody * 0.40) {
+
+      legInAir = true;
+      Legs.right = true;
+    } else {
+      checkRightLeg();
+    }
+
+  }
   function onResults(results) {
     try {
       canvasCtx.save();
@@ -54,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         canvasCtx.fill();
         // Print center point location on the console
         // console.log('Center Point Location:', centerPoint);
-        var gridPosition = {
+        gridPosition = {
           left: centerPoint.x * canvasElement.width < boxWidth,
           right: centerPoint.x * canvasElement.width > canvasElement.width - boxWidth,
           top: centerPoint.y * canvasElement.height < topHeight,
@@ -64,37 +115,63 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         // Update gridPosition to include center
         gridPosition.center = !gridPosition.left && !gridPosition.right;
-        var moving = false;
+        // var moving = false;
 
+        var nose = results.poseLandmarks[0].y;
+        // Right leg points
         var yrh = results.poseLandmarks[24].y;
-        var yrk = results.poseLandmarks[26].y;
         var yra = results.poseLandmarks[28].y;
-
+        //Left leg points
         var ylh = results.poseLandmarks[23].y;
-        var ylk = results.poseLandmarks[25].y;
         var yla = results.poseLandmarks[27].y;
 
-        var disLeftK = yla - ylk;
-        var disLeftH = ylk - ylh;
+        fullbody = 0;
 
-        var disRightK = yra - yrk;
-        var disRightH = yrk - yrh;
-
-        if (disLeftH < 0.15 || disLeftK <0.15) {
-          gridPosition.moving = true;
+        if (yra > yla) {
+          fullbody = yra - nose;
+        } else {
+          fullbody = yla - nose;
         }
-        if (disRightH < 0.15 || disRightK <0.15) {
-          gridPosition.moving = true;
+        var leftLeg = yla - ylh;
+        var rightLeg = yra - yrh;
+
+        checkLowerLimbMovement(fullbody, leftLeg, rightLeg);
+
+
+
+        // if (disLeftH < 0.15 || disLeftK < 0.15) {
+        //   gridPosition.moving = true;
+        // }
+        // if (disRightH < 0.15 || disRightK < 0.15) {
+        //   gridPosition.moving = true;
+        // }
+
+
+        var rw = results.poseLandmarks[15].x;
+        var lw = results.poseLandmarks[16].x;
+        RestartGame(rw, lw);
+        var lis = [];
+
+        // Traverse the gridPosition object
+        for (var key in gridPosition) {
+          if (gridPosition.hasOwnProperty(key)) {
+            // Check if the value of the key is true
+            if (gridPosition[key] === true) {
+              // If true, append the key to the lis list
+              lis.push(key);
+            }
+          }
         }
 
         // Display position text on the bottom corner
         canvasCtx.fillStyle = gridPosition.center ? '#0000FF' : '#FFFFFF'; // Blue color if center, white otherwise
         canvasCtx.font = '40px Arial';
-        canvasCtx.fillText(`moving  ${gridPosition.moving} `, 10, canvasElement.height - 10);
+        canvasCtx.fillText(`${lis} ${fullbody.toFixed(2)}  ${leftLeg.toFixed(2)}  ${rightLeg.toFixed(2)}  ${legInAir}`, 10, canvasElement.height - 10);
 
-        gridPosition.moving = true;
+        // gridPosition.moving = true;
         // Send data to server
         sendMediaPipePointsToServer(gridPosition);
+
       }
       canvasCtx.restore();
     } catch (error) {
