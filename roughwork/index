@@ -117,20 +117,11 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
-      }).then((unityInstance) => {
-          if (typeof unityInstance !== "undefined") {
-              // Assuming 'newApiUrl' is the new value you want to assign to 'apiUrl'
-              var newApiUrl = "new_api_url_here";
-      
-              // Sending a message to the Unity instance to update the apiUrl variable
-              unityInstance.SendMessage("PlayerMove", "UpdateApiUrl", newApiUrl);
-          } else {
-              console.error("UnityInstance is not available.");
-          }
+        }).then((unityInstance) => {
           loadingBar.style.display = "none";
-       //   fullscreenButton.onclick = () => {
+          fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
-         // };
+          };
         }).catch((message) => {
           alert(message);
         });
