@@ -9,14 +9,104 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: grid;
+      grid-template-columns: 1fr minmax(0, 1fr);
+      gap: 20px;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .video-container {
+      grid-column: 1 / span 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .video-container video,
+    .video-container canvas {
+      width: 100%;
+    }
+
+    .cards-container {
+      grid-column: 2 / span 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center; /* Align cards to the center horizontally */
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 18px;
+      width: 100px; /* Adjust the width as needed */
+    }
+
+    .left {
+      align-self: flex-start; /* Align left card to the top */
+    }
+
+    .top {
+      align-self: flex-start; /* Align top card to the top */
+    }
+
+    .right {
+      align-self: flex-end; /* Align right card to the bottom */
+    }
+
+    .bottom {
+      align-self: flex-end; /* Align bottom card to the bottom */
+    }
+    header{
+      text-align: center;
+    }
+    .logo {
+      width: 50px; /* Adjust the width as needed */
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
-  <div>
+  <header>
+    <img src="/img/logo.jpeg" alt="Logo" class="logo">
+    <h1 class="logo-text">Fitness Through Gaming</h1>
+    <h2>Camera Test</h2>
+  </header>
+  <div class="video-container">
     <video class="input_video" hidden="hidden"></video>
-    <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+    <canvas class="output_canvas" width="1280px" height="1020px"></canvas>
   </div>
-  <script src="script.js">
-  </script>
+  <div class="container">
+    <div class="card">Left</div>
+    <div>
+      <div class="card">Top</div>
+      <div class="card">Bottom</div>
+    </div>
+    <div class="card">Right</div>
+  </div>
+  <script src="script.js"></script>
 </body>
+
 </html>
+
