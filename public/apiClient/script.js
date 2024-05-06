@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       legInAir = false;
       gridPosition.moving = true;
       Legs.left = false;
+      console.log(gridPosition.moving);
     }
   }
   function checkRightLeg() {
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       legInAir = false;
       gridPosition.moving = true;
       Legs.right = false;
+      console.log(gridPosition.moving);
     }
   }
   function checkLowerLimbMovement(fullbody, leftLeg, rightLeg) {
@@ -136,16 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var rightLeg = yra - yrh;
 
         checkLowerLimbMovement(fullbody, leftLeg, rightLeg);
-
-
-
-        // if (disLeftH < 0.15 || disLeftK < 0.15) {
-        //   gridPosition.moving = true;
-        // }
-        // if (disRightH < 0.15 || disRightK < 0.15) {
-        //   gridPosition.moving = true;
-        // }
-
 
         var rw = results.poseLandmarks[15].x;
         var lw = results.poseLandmarks[16].x;

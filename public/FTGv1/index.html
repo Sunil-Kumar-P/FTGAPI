@@ -3,13 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | JimmyRun</title>
+    <title>Unity WebGL Player | FTG JimmyRun</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <!-- Mediapipe and additional links -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div>
+      <video class="input_video" hidden="hidden"></video>
+    </div>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <div id="fullscreen-container">
+        <canvas class="output_canvas" id="cam" width="1280px" height="720px"></canvas>
+        <canvas id="unity-canvas" width=960 height=600></canvas>
+      </div>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -20,8 +32,9 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">JimmyRun</div>
+        <div id="unity-build-title">Jimmy Run</div>
       </div>
+    </div>
     </div>
     <script>
       var container = document.querySelector("#unity-container");
@@ -63,7 +76,7 @@
         codeUrl: buildUrl + "/FTGv1.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Fitness Through Gaming",
-        productName: "JimmyRun",
+        productName: "FTG JimmyRun",
         productVersion: "0.1",
         showBanner: unityShowBanner,
       };
@@ -105,6 +118,15 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
+          if (typeof unityInstance !== "undefined") {
+            // Assuming 'newApiUrl' is the new value you want to assign to 'apiUrl'
+            var newApiUrl = "http://127.0.0.1:3000/api/";
+    
+            // Sending a message to the Unity instance to update the apiUrl variable
+            unityInstance.SendMessage("PlayerMove", "UpdateApiUrl", newApiUrl);
+        } else {
+            console.error("UnityInstance is not available.");
+        }
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
@@ -115,5 +137,6 @@
       };
       document.body.appendChild(script);
     </script>
+    <script src="./script.js"></script>
   </body>
 </html>
