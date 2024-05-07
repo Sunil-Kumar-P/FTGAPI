@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var rw = results.poseLandmarks[15].x;
         var lw = results.poseLandmarks[16].x;
-        var lwy = results.poseLandmarks[16].y;
+        var rwy = results.poseLandmarks[15].y;
         RestartGame(rw, lw);
         var lis = [];
 
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         }
-        if(lwy < nose){
+        if(rwy < nose){
           window.location.href = 'http://localhost:3000/';
         }
 
