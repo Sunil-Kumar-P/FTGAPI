@@ -12,77 +12,72 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
-      display: grid;
-      grid-template-columns: 1fr minmax(0, 1fr);
-      gap: 20px;
-      height: 100vh;
-      background-color: #f0f0f0;
-    }
-
-    .video-container {
-      grid-column: 1 / span 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-
-    .video-container video,
-    .video-container canvas {
-      width: 100%;
-    }
-
-    .cards-container {
-      grid-column: 2 / span 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      align-items: center; /* Align cards to the center horizontally */
+      min-height: 100vh;
     }
 
-    .card {
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    header {
+      background-color: #333;
+      color: #fff;
       padding: 20px;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 18px;
-      width: 100px; /* Adjust the width as needed */
-    }
-
-    .left {
-      align-self: flex-start; /* Align left card to the top */
-    }
-
-    .top {
-      align-self: flex-start; /* Align top card to the top */
-    }
-
-    .right {
-      align-self: flex-end; /* Align right card to the bottom */
-    }
-
-    .bottom {
-      align-self: flex-end; /* Align bottom card to the bottom */
-    }
-    header{
       text-align: center;
     }
+
     .logo {
-      width: 50px; /* Adjust the width as needed */
+      width: 100px;
+      /* Adjust as needed */
       height: auto;
-      margin-right: 10px;
+      display: inline-block;
     }
 
     .logo-text {
-      font-size: 24px;
-      font-weight: bold;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .video-container {
+      width: calc(50% - 10px);
+      /* Adjust for spacing between columns */
+      margin-bottom: 10px;
+    }
+
+    .input_video {
+      width: 100%;
+      height: auto;
+    }
+
+    .card-container {
+      width: 20%;
+      /* Adjust for spacing between columns */
+    }
+
+    .card {
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      padding: 15px;
+
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 100px;
+      /* Adjust as needed */
+      height: 100px;
+      /* Make it square */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .output_canvas {
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
@@ -93,20 +88,21 @@
     <h1 class="logo-text">Fitness Through Gaming</h1>
     <h2>Camera Test</h2>
   </header>
-  <div class="video-container">
-    <video class="input_video" hidden="hidden"></video>
-    <canvas class="output_canvas" width="1280px" height="1020px"></canvas>
-  </div>
   <div class="container">
-    <div class="card">Left</div>
-    <div>
-      <div class="card">Top</div>
-      <div class="card">Bottom</div>
+    <div class="video-container">
+      <video class="input_video" hidden="hidden"></video>
+      <canvas class="output_canvas" width="1280px" height="1020px"></canvas>
     </div>
-    <div class="card">Right</div>
+    <h2>Actions:</h2><br>
+    <div class="card-container" id="cardContainer"></div>
+    <div class="card-container" id="stepContainer"> <div class="card" id="steps">Steps:</div></div>
+     
+
+
+
   </div>
-  <script src="script.js"></script>
+
+  <script src="./script.js"></script>
 </body>
 
 </html>
-

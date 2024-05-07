@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const videoElement = document.getElementsByClassName("input_video")[0];
   const canvasElement = document.getElementsByClassName("output_canvas")[0];
   const canvasCtx = canvasElement.getContext("2d");
+  var cardContainer = document.getElementById('cardContainer');
+  var stepsContainer = document.getElementById('steps');
+  var steps = 0;
   var gridPosition = {
     left: false,
     right: false,
@@ -15,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     'right': false,
   }
   var legInAir = false;
-
+  var listaction = [];
   function RestartGame(rw, lw) {
     if (rw < lw) {
       gridPosition.restart = true;
@@ -28,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       legInAir = false;
       gridPosition.moving = true;
       Legs.left = false;
+      steps+=1;
       console.log(gridPosition.moving);
     }
   }
@@ -36,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       legInAir = false;
       gridPosition.moving = true;
       Legs.right = false;
+      steps+=1;
       console.log(gridPosition.moving);
     }
   }
@@ -56,6 +61,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
   }
+  function UpdateCards() {
+    while (cardContainer.firstChild) {
+      cardContainer.removeChild(cardContainer.firstChild);
+    }
+    for (var key in gridPosition) {
+      if (gridPosition.hasOwnProperty(key)) {
+        // Check if the value of the key is true
+        if (gridPosition[key] === true) {
+          var card = document.createElement('div');
+          card.className = 'card';
+          card.textContent = key.toUpperCase();
+          cardContainer.appendChild(card);
+        }
+      }
+    }
+    for (var key in Legs) {
+      if (gridPosition.hasOwnProperty(key)) {
+        // Check if the value of the key is true
+        if (Legs[key] === true) {
+          var card = document.createElement('div');
+          card.className = 'card';
+          if(key=='left') card.textContent = "Right Leg is  Up";
+          if(key=='right') card.textContent = "Left Leg is  Up";
+          cardContainer.appendChild(card);
+        }
+      }
+    }
+    setTimeout(UpdateCards, 500);
+  }
+  UpdateCards();
   function onResults(results) {
     try {
       canvasCtx.save();
@@ -141,18 +176,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var rw = results.poseLandmarks[15].x;
         var lw = results.poseLandmarks[16].x;
+        var rwy = results.poseLandmarks[15].y;
+        var lwy = results.poseLandmarks[16].y;
         RestartGame(rw, lw);
         var lis = [];
 
-        // Traverse the gridPosition object
-        for (var key in gridPosition) {
-          if (gridPosition.hasOwnProperty(key)) {
-            // Check if the value of the key is true
-            if (gridPosition[key] === true) {
-              // If true, append the key to the lis list
-              lis.push(key);
-            }
-          }
+
+        if(rwy < nose){
+          window.location.href = 'http://localhost:3000/FTGv1';
+        }
+        if(lwy < nose){
+          window.location.href = 'http://localhost:3000/';
         }
 
         // Display position text on the bottom corner
@@ -163,6 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // gridPosition.moving = true;
         // Send data to server
         sendMediaPipePointsToServer(gridPosition);
+       stepsContainer.innerHTML = "Steps: "+steps;
 
       }
       canvasCtx.restore();
