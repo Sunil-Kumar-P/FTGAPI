@@ -44,16 +44,19 @@ document.addEventListener("DOMContentLoaded", function () {
     if (leftLeg < fullbody * 0.40) {
       legInAir = true;
       Legs.left = true;
+      gridPosition.moving = true;
     } else {
-      checkLeftLeg();
+      // checkLeftLeg();
     }
     if (rightLeg < fullbody * 0.40) {
 
       legInAir = true;
       Legs.right = true;
+      gridPosition.moving = true;
     } else {
-      checkRightLeg();
+      // checkRightLeg();
     }
+
   }
   function onResults(results) {
     try {
@@ -67,6 +70,15 @@ document.addEventListener("DOMContentLoaded", function () {
         canvasElement.height
       );
       if (results.poseLandmarks) {
+        drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
+          color: "#00FF00",
+          lineWidth: 5,
+        });
+        drawLandmarks(canvasCtx, results.poseLandmarks, {
+          color: "#FF0000",
+          lineWidth: 2,
+        });
+        // Determine grid position
         const topHeight = (canvasElement.height / 10) * 4;
         const boxWidth = (canvasElement.width / 11) * 4;
         const boxHeight = canvasElement.height / 3;
@@ -131,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var rw = results.poseLandmarks[15].x;
         var lw = results.poseLandmarks[16].x;
+        var rwy = results.poseLandmarks[15].y;
         RestartGame(rw, lw);
         var lis = [];
 
@@ -144,14 +157,19 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         }
+        if(rwy < nose){
+          window.location.href = 'http://localhost:3000/';
+        }
 
         // Display position text on the bottom corner
         canvasCtx.fillStyle = gridPosition.center ? '#0000FF' : '#FFFFFF'; // Blue color if center, white otherwise
         canvasCtx.font = '40px Arial';
         canvasCtx.fillText(`${lis} ${fullbody.toFixed(2)}  ${leftLeg.toFixed(2)}  ${rightLeg.toFixed(2)}  ${legInAir}`, 10, canvasElement.height - 10);
 
+        // gridPosition.moving = true;
         // Send data to server
         sendMediaPipePointsToServer(gridPosition);
+
       }
       canvasCtx.restore();
     } catch (error) {
@@ -194,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Server response:', data);
+        // console.log('Server response:', data);
       })
       .catch(error => {
         console.error('Error:', error);

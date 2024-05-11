@@ -1,85 +1,62 @@
-
-function Walking(results) {
-  try {
-    if (results.poseLandmarks) {
-      const currentTime = Date.now(); // saving present time
-
-      if (currentTime - lastMessageTime >= 1000) {
-        var yrh = results.poseLandmarks[24].y;
-        var yrk = results.poseLandmarks[26].y;
-        var yra = results.poseLandmarks[28].y;
-
-        var ylh = results.poseLandmarks[23].y;
-        var ylk = results.poseLandmarks[25].y;
-        var yla = results.poseLandmarks[27].y;
-
-        // if (yla - ylk > ylk - ylh || yra - yrk > yrk - yrh) {
-        //   mpState["move"] = true;
-        //   sendMessageToUnity("MoveForward");
-        //   lastMessageTime = currentTime;
-        // }
-
-        var disLeftK = yla - ylk;
-        var disLeftH = ylk - ylh;
-
-        var disRightK = yra - yrk;
-        var disRightH = yrk - yrh;
-
-        if(disLeftH+disLeftH > disLeftK){
-
-        }
-      }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
-function Punch() {
-  try {
-    if (results.poseLandmarks) {
-      var currentTime = Date.now(); // saving present time
-
-      if (currentTime - lastMessageTime >= 1000) {
-
-        var xls = results.poseLandmarks[11].x;
-
-        var xrs = results.poseLandmarks[12].x;
-        var yrs = results.poseLandmarks[12].y;
-
-        var xrw = results.poseLandmarks[16].x;
-        var yrw = results.poseLandmarks[16].y;
-
-        if (xrs + xrs * 0.1 > xrw && xrs - xrs * 0.1 < xrw) {
-          if (
-            yrs + yrs * 0.1 > yrw &&
-            yrs - yrs * 0.1 < yrw &&
-            mpState["punch"] == false
-          ) {
-            mpState["punch"] = true;
-            sendMessageToUnity("PlayerPunch");
-            console.log("Punch");
-            lastMessageTime = currentTime;
-          }
-        }
-      }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
   const videoElement = document.getElementsByClassName("input_video")[0];
   const canvasElement = document.getElementsByClassName("output_canvas")[0];
   const canvasCtx = canvasElement.getContext("2d");
+  var gridPosition = {
+    left: false,
+    right: false,
+    top: false,
+    bottom: false,
+    moving: false,
+    restart: false,
+  };
+  var Legs = {
+    'left': false,
+    'right': false,
+  }
+  var legInAir = false;
 
+  function RestartGame(rw, lw) {
+    if (rw < lw) {
+      gridPosition.restart = true;
+    } else {
+      gridPosition.restart = false;
+    }
+  }
+  function checkLeftLeg() {
+    if (Legs.left) {
+      legInAir = false;
+      gridPosition.moving = true;
+      Legs.left = false;
+      console.log(gridPosition.moving);
+    }
+  }
+  function checkRightLeg() {
+    if (Legs.right) {
+      legInAir = false;
+      gridPosition.moving = true;
+      Legs.right = false;
+      console.log(gridPosition.moving);
+    }
+  }
+  function checkLowerLimbMovement(fullbody, leftLeg, rightLeg) {
+
+    if (leftLeg < fullbody * 0.40) {
+      legInAir = true;
+      Legs.left = true;
+    } else {
+      checkLeftLeg();
+    }
+    if (rightLeg < fullbody * 0.40) {
+
+      legInAir = true;
+      Legs.right = true;
+    } else {
+      checkRightLeg();
+    }
+  }
   function onResults(results) {
     try {
-      const currentTime = Date.now(); // saving present time
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
       canvasCtx.drawImage(
@@ -90,15 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
         canvasElement.height
       );
       if (results.poseLandmarks) {
-        //   drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
-        //     color: "#00FF00",
-        //     lineWidth: 5,
-        //   });
-        //   drawLandmarks(canvasCtx, results.poseLandmarks, {
-        //     color: "#FF0000",
-        //     lineWidth: 2,
-        //   });
-        // Determine grid position
         const topHeight = (canvasElement.height / 10) * 4;
         const boxWidth = (canvasElement.width / 11) * 4;
         const boxHeight = canvasElement.height / 3;
@@ -129,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
         canvasCtx.fill();
         // Print center point location on the console
         // console.log('Center Point Location:', centerPoint);
-        var gridPosition = {
+        gridPosition = {
           left: centerPoint.x * canvasElement.width < boxWidth,
           right: centerPoint.x * canvasElement.width > canvasElement.width - boxWidth,
           top: centerPoint.y * canvasElement.height < topHeight,
@@ -139,42 +107,51 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         // Update gridPosition to include center
         gridPosition.center = !gridPosition.left && !gridPosition.right;
-       var moving = false;
+        // var moving = false;
 
-        if (currentTime - lastMessageTime >= 1000) {
-          var yrh = results.poseLandmarks[24].y;
-          var yrk = results.poseLandmarks[26].y;
-          var yra = results.poseLandmarks[28].y;
+        var nose = results.poseLandmarks[0].y;
+        // Right leg points
+        var yrh = results.poseLandmarks[24].y;
+        var yra = results.poseLandmarks[28].y;
+        //Left leg points
+        var ylh = results.poseLandmarks[23].y;
+        var yla = results.poseLandmarks[27].y;
 
-          var ylh = results.poseLandmarks[23].y;
-          var ylk = results.poseLandmarks[25].y;
-          var yla = results.poseLandmarks[27].y;
+        fullbody = 0;
 
-          var disLeftK = yla - ylk;
-          var disLeftH = ylk - ylh;
-
-          var disRightK = yra - yrk;
-          var disRightH = yrk - yrh;
-
-          if (disLeftH + disLeftH > disLeftK) {
-            // gridPosition.moving = true;
-            moving =false;
-          }
-          if (disRightH + disRightH > disRightK) {
-            // gridPosition.moving = true;
-            moving =false;
-
-          }
-          lastMessageTime = currentTime;
+        if (yra > yla) {
+          fullbody = yra - nose;
+        } else {
+          fullbody = yla - nose;
         }
+        var leftLeg = yla - ylh;
+        var rightLeg = yra - yrh;
+
+        checkLowerLimbMovement(fullbody, leftLeg, rightLeg);
+
+        var rw = results.poseLandmarks[15].x;
+        var lw = results.poseLandmarks[16].x;
+        RestartGame(rw, lw);
+        var lis = [];
+
+        // Traverse the gridPosition object
+        for (var key in gridPosition) {
+          if (gridPosition.hasOwnProperty(key)) {
+            // Check if the value of the key is true
+            if (gridPosition[key] === true) {
+              // If true, append the key to the lis list
+              lis.push(key);
+            }
+          }
+        }
+
         // Display position text on the bottom corner
         canvasCtx.fillStyle = gridPosition.center ? '#0000FF' : '#FFFFFF'; // Blue color if center, white otherwise
-        canvasCtx.font = '20px Arial';
-        canvasCtx.fillText(`Position: left: ${gridPosition.left} right: ${gridPosition.right} top: ${gridPosition.top} bottom: ${gridPosition.bottom} center: ${gridPosition.center}`, 10, canvasElement.height - 10);
+        canvasCtx.font = '40px Arial';
+        canvasCtx.fillText(`${lis} ${fullbody.toFixed(2)}  ${leftLeg.toFixed(2)}  ${rightLeg.toFixed(2)}  ${legInAir}`, 10, canvasElement.height - 10);
 
         // Send data to server
         sendMediaPipePointsToServer(gridPosition);
-        console.log("moving = " + moving);
       }
       canvasCtx.restore();
     } catch (error) {

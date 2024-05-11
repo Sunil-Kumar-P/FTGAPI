@@ -118,15 +118,6 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
-          if (typeof unityInstance !== "undefined") {
-            // Assuming 'newApiUrl' is the new value you want to assign to 'apiUrl'
-            var newApiUrl = "http://127.0.0.1:3000/api/";
-    
-            // Sending a message to the Unity instance to update the apiUrl variable
-            unityInstance.SendMessage("PlayerMove", "UpdateApiUrl", newApiUrl);
-        } else {
-            console.error("UnityInstance is not available.");
-        }
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
