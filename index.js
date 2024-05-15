@@ -15,9 +15,6 @@ const app = express();
 const port = 3000;
 var storedData = [];
 
-connectToMongoDB(process.env.MONGODB ?? "mongodb+srv://admin:Gaming123@gamingdata.d53tbwt.mongodb.net/jungle").then(() =>
-  console.log("Mongodb connected")
-);
 
 // // Middleware
 app.use(cors());
