@@ -183,10 +183,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         if(rwy < nose){
-          window.location.href = 'https://ftgapi.onrender.com:3000/FTGv1';
+          window.location.href = 'https://ftgapi.onrender.com/FTGv1';
         }
         if(lwy < nose){
-          window.location.href = 'https://ftgapi.onrender.com:3000/';
+          window.location.href = 'https://ftgapi.onrender.com/';
         }
 
         // Display position text on the bottom corner
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
   camera.start();
 
   function sendMediaPipePointsToServer(gridPosition) {
-    fetch('https://ftgapi.onrender.com:3000/api/process', {
+    fetch('https://ftgapi.onrender.com/api/process', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
