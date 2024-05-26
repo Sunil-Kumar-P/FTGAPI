@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var rw = results.poseLandmarks[15].x;
         var lw = results.poseLandmarks[16].x;
         var rwy = results.poseLandmarks[15].y;
+        var lwy = results.poseLandmarks[16].y;
         RestartGame(rw, lw);
         var lis = [];
 
