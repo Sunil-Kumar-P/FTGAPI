@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         if(rwy < nose){
-          window.location.href = 'https://ftgapi.onrender.com/FTGv1';
+          window.location.href = 'https://ftgapi.onrender.com/FTGv2';
         }
         if(lwy < nose){
           window.location.href = 'https://ftgapi.onrender.com/';
