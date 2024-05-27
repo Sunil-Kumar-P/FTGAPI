@@ -158,9 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         }
-        if(rwy < nose){
-          gridPosition.restart=true;
-        }
+       
         if(lwy < nose){
           window.location.href = 'https://ftgapi.onrender.com/';
         }
